@@ -15,3 +15,10 @@ export interface IProductContextProps {
   increaseBy: (n: number) => void;
   product: Product;
 }
+
+export interface ProductCardHOCProps {
+  ({ product, children }: IProductCard): JSX.Element;
+  Title: ({ title }: { title?: string | undefined }) => JSX.Element;
+  Image: ({ img }: { img?: string | undefined }) => JSX.Element
+  Buttons: () => JSX.Element
+}

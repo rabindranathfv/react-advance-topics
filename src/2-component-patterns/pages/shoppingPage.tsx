@@ -1,8 +1,5 @@
-
-import { ProductButtons } from '../components/ProductButtons';
-import { ProductImage } from '../components/ProductImage';
-import { ProductTitle } from '../components/ProductTitle';
-import { ProductCard } from './../components/ProductCar';
+import ProductCard from "../components"
+import { ProductButtons, ProductImage, ProductTitle } from "../components"
 
 const product = {
   id: '1',
