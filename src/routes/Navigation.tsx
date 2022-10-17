@@ -28,7 +28,7 @@ export const Navigation = () => {
                     <Route path="about" element={ <h1>About Page</h1> } />
                     <Route path="home" element={ <h1>Home Page</h1> } />
                     <Route path="shopping" element={ <ShoppingPage /> } />
-                    
+
                     <Route path="/*" element={ <Navigate to="/home" replace /> } />
                 </Routes>
 
