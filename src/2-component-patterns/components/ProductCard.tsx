@@ -1,4 +1,4 @@
-import { createContext, ReactElement } from 'react';
+import { createContext, ReactElement, CSSProperties} from 'react';
 import styles from '../styles/styles.module.css';
 
 import { useProduct } from '../hooks/useProduct';
@@ -11,16 +11,15 @@ export interface IProductCard {
   product: Product;
   children?: ReactElement | ReactElement[],
   className?: string;
+  style?: CSSProperties
 }
 
-export const ProductCard = ({ product, children, className }: IProductCard ) => {
-  console.log('🚀 ~ file: ProductCard.tsx ~ line 17 ~ ProductCard ~ className', className);
+export const ProductCard = ({ product, children, className, style }: IProductCard ) => {
   const { count, increaseBy }  = useProduct();
 
   return (
     <Provider value={{ count, increaseBy, product }}>
-      {/* <div id={product.id} className={styles.productCard}> */}
-      <div id={product.id} className={`${styles.productCard} ${className}`}>
+      <div id={product.id} className={`${styles.productCard} ${className}`} style={style}>
         { children }
       </div>
     </Provider>

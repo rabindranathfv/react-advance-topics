@@ -2,12 +2,21 @@
   background-color: rgb(59, 59, 59);
 }
 
-.text-white {
-  color: rgb(255, 255, 255);
+.text-gray {
+  color: gray;
 }
 
 .custom-image {
   padding: 10px;
   border-radius: 20px;
   width: calc(100% - 20px);
+}
+
+.custom-btn {
+  border: 1px solid #fff;
+}
+
+.custmon-btn-gray {
+  background-color: rgb(59, 59, 59);
+  color: #fff;
 }
