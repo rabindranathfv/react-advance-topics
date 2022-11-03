@@ -1,0 +1,13 @@
+.gb-dark {
+  background-color: rgb(59, 59, 59);
+}
+
+.text-white {
+  color: rgb(255, 255, 255);
+}
+
+.custom-image {
+  padding: 10px;
+  border-radius: 20px;
+  width: calc(100% - 20px);
+}
