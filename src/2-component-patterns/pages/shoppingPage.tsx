@@ -35,18 +35,39 @@ export const ShoppingPage = () => {
 
   const onProductCountChange = ({ count, product }: onChangeArgs) => {
     setShoppingCart((shoppingState) => {
-      if (count === 0) {
-        const { [product.id]: productDelete, ...restShoppingState } =
-          shoppingState;
+      const productInCar: IProductInCart = shoppingState[product.id] || {
+        ...product,
+        count: 0,
+      };
+
+      if (Math.max(productInCar.count + count, 0) > 0) {
+        productInCar.count += count;
         return {
-          ...restShoppingState,
+          ...shoppingState,
+          [product.id]: productInCar,
         };
       }
 
+      const { [product.id]: productDelete, ...restShoppingState } =
+        shoppingState;
       return {
-        ...shoppingState,
-        [`${product.id}`]: { ...product, count },
+        ...restShoppingState,
       };
+
+      // TODO: old solution, this solution has no completed implemented
+
+      // if (count === 0) {
+      //   const { [product.id]: productDelete, ...restShoppingState } =
+      //     shoppingState;
+      //   return {
+      //     ...restShoppingState,
+      //   };
+      // }
+
+      // return {
+      //   ...shoppingState,
+      //   [`${product.id}`]: { ...product, count },
+      // };
     });
   };
 
