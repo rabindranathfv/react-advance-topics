@@ -30,15 +30,16 @@ interface IProductInCart extends Product {
 
 export const ShoppingPage = () => {
   const [shoppingCart, setShoppingCart] = useState<{
-    [key: string]: IProductInCart[];
+    [key: string]: IProductInCart;
   }>({});
 
   const onProductCountChange = ({ count, product }: onChangeArgs) => {
-    console.log(
-      "🚀 ~ file: shoppingPage.tsx:39 ~ onProductCountChange ~ onProductCountChange:",
-      count,
-      product
-    );
+    setShoppingCart((shoppingState) => {
+      return {
+        ...shoppingState,
+        [`${product.id}`]: { ...product, count },
+      };
+    });
   };
 
   return (
