@@ -71,6 +71,7 @@ export const ShoppingPage = () => {
               product={product}
               className="gb-dark"
               onChange={(e) => onProductCountChange(e)}
+              value={shoppingCart[product.id]?.count || 0}
             >
               <ProductImage
                 className="custom-image"
