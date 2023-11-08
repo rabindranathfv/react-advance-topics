@@ -35,6 +35,14 @@ export const ShoppingPage = () => {
 
   const onProductCountChange = ({ count, product }: onChangeArgs) => {
     setShoppingCart((shoppingState) => {
+      if (count === 0) {
+        const { [product.id]: productDelete, ...restShoppingState } =
+          shoppingState;
+        return {
+          ...restShoppingState,
+        };
+      }
+
       return {
         ...shoppingState,
         [`${product.id}`]: { ...product, count },
@@ -80,34 +88,33 @@ export const ShoppingPage = () => {
       </div>
 
       <div className="shopping-cart">
-        <ProductCard
-          product={product}
-          className="gb-dark"
-          style={{ width: "100px" }}
-          onChange={(e) => onProductCountChange(e)}
-        >
-          <ProductCard.Image className="custom-image" />
-          <ProductCard.Title title={"valid TITLE"} />
-          <ProductCard.Buttons
-            style={{ display: "flex", justifyContent: "end" }}
-          />
-        </ProductCard>
-
-        <ProductCard product={product2} style={{ width: "100px" }}>
-          <ProductImage className="custom-image" />
-
-          <ProductButtons className="custom-btn custmon-btn-gray" />
-        </ProductCard>
-
-        <ProductCard
-          product={product3}
-          className="gb-dark"
-          style={{ width: "100px" }}
-        >
-          <ProductImage className="custom-image" />
-          <ProductButtons className="custom-btn custmon-btn-gray" />
-        </ProductCard>
+        {/* {Object.entries(shoppingCart).map(([pKey, product]) => { */}
+        {Object.keys(shoppingCart).map((productId) => {
+          return (
+            <ProductCard
+              key={productId}
+              product={shoppingCart[productId]}
+              className="gb-dark"
+              style={{ width: "110px" }}
+              onChange={(e) => onProductCountChange(e)}
+              value={shoppingCart[productId].count}
+            >
+              <ProductCard.Image className="custom-image" />
+              <ProductCard.Title
+                title={shoppingCart[productId].title}
+                style={{ color: "#fff", fontSize: "10px" }}
+                className="text-bold"
+              />
+              <ProductCard.Buttons
+                className="custom-btn custmon-btn-gray"
+                style={{ display: "flex", justifyContent: "end" }}
+              />
+            </ProductCard>
+          );
+        })}
       </div>
+
+      <code>{JSON.stringify(shoppingCart, null, 5)}</code>
     </div>
   );
 };
