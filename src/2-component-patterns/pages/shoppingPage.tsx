@@ -1,75 +1,12 @@
-import { useState } from "react";
 import ProductCard from "../components";
 import { ProductButtons, ProductImage, ProductTitle } from "../components";
-import { Product, onChangeArgs } from "../interfaces/product.interface";
+import { Product } from "../interfaces/product.interface";
 import "../styles/custom-styles.css";
-
-const product = {
-  id: "1",
-  title: "coffe-mug 1 INFO!",
-  // img: './coffee-mug.png'
-};
-
-const product2 = {
-  id: "2",
-  title: "coffe-mug 2 NEW!",
-  img: "./coffee-mug.png",
-};
-
-const product3 = {
-  id: "3",
-  title: "coffe-mug 3 NEW!",
-  img: "./coffee-mug2.png",
-};
-
-const products: Product[] = [{ ...product }, { ...product2 }, { ...product3 }];
-
-interface IProductInCart extends Product {
-  count: number;
-}
+import { useShoppingCart } from "../hooks/useShoppingCart";
+import { products } from "../data/product";
 
 export const ShoppingPage = () => {
-  const [shoppingCart, setShoppingCart] = useState<{
-    [key: string]: IProductInCart;
-  }>({});
-
-  const onProductCountChange = ({ count, product }: onChangeArgs) => {
-    setShoppingCart((shoppingState) => {
-      const productInCar: IProductInCart = shoppingState[product.id] || {
-        ...product,
-        count: 0,
-      };
-
-      if (Math.max(productInCar.count + count, 0) > 0) {
-        productInCar.count += count;
-        return {
-          ...shoppingState,
-          [product.id]: productInCar,
-        };
-      }
-
-      const { [product.id]: productDelete, ...restShoppingState } =
-        shoppingState;
-      return {
-        ...restShoppingState,
-      };
-
-      // TODO: old solution, this solution has no completed implemented
-
-      // if (count === 0) {
-      //   const { [product.id]: productDelete, ...restShoppingState } =
-      //     shoppingState;
-      //   return {
-      //     ...restShoppingState,
-      //   };
-      // }
-
-      // return {
-      //   ...shoppingState,
-      //   [`${product.id}`]: { ...product, count },
-      // };
-    });
-  };
+  const { shoppingCart, onProductCountChange } = useShoppingCart();
 
   return (
     <div>
