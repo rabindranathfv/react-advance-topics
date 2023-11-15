@@ -24,7 +24,6 @@ export const useProduct = ({
   const isControlled = useRef(!!onChange);
 
   const increaseBy = (value: number) => {
-    console.log("HERE!");
     if (isControlled.current && onChange) {
       return onChange({ count: value, product });
     }

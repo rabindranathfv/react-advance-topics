@@ -32,7 +32,7 @@ export const ShoppingPage = () => {
             maxCount: 12,
           }}
         >
-          {({ reset }) => (
+          {({ reset, increaseBy, isMaxCountReached, count }) => (
             <>
               <ProductImage
                 className="custom-image"
@@ -45,6 +45,11 @@ export const ShoppingPage = () => {
               />
               <ProductButtons className="custom-btn custmon-btn-gray" />
               <button onClick={reset}>reset</button>
+              <button onClick={() => increaseBy(2)}>+2</button>
+              {!isMaxCountReached && (
+                <button onClick={() => increaseBy(-2)}>-2</button>
+              )}
+              <span style={{ color: "white", fontSize: "20px" }}> {count}</span>
             </>
           )}
         </ProductCard>
