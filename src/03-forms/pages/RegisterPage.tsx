@@ -11,6 +11,7 @@ export const RegisterPage = () => {
     password,
     confirmPassword,
     resetForm,
+    isValidEmail,
   } = useForm({
     name: "",
     email: "",
@@ -22,12 +23,6 @@ export const RegisterPage = () => {
     e.preventDefault();
     console.log("DATA ON SUBMIT", formData);
   };
-
-  // const isValidEmail = (email: string) => {
-  //   const re =
-  //     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  //   return re.test(email);
-  // };
 
   // if (!values.email) {
   //   errors.email = "Required";
@@ -48,18 +43,15 @@ export const RegisterPage = () => {
           className={`${name.trim().length <= 0}` && "has-error"}
         />
         {name.trim().length <= 0 && <span>este campo es requerido</span>}
-
         <input
           type="email"
           value={email}
           name="email"
           onChange={onChange}
           placeholder="Email"
-          className="has-error"
+          className={`${!isValidEmail(email) && " has-error"}`}
         />
-
-        {name.trim().length <= 0 && <span>este campo es requerido</span>}
-
+        {!isValidEmail(email) && <span>Email no es valido</span>}
         <input
           type="password"
           value={password}
@@ -68,8 +60,10 @@ export const RegisterPage = () => {
           placeholder="Password"
           className="has-error"
         />
-
-        {name.trim().length <= 0 && <span>este campo es requerido</span>}
+        {password.trim().length <= 0 && <span>este campo es requerido</span>}
+        {password.trim().length > 0 && password.trim().length <= 6 && (
+          <span>este tiene menos de 6 caracteres</span>
+        )}
         <input
           type="password"
           value={confirmPassword}
@@ -78,9 +72,16 @@ export const RegisterPage = () => {
           onChange={onChange}
           className="has-error"
         />
-
-        {name.trim().length <= 0 && <span>este campo es requerido</span>}
-
+        {confirmPassword.trim().length <= 0 && (
+          <span>este campo es requerido</span>
+        )}
+        {confirmPassword.trim().length > 0 &&
+          confirmPassword.trim().toLocaleLowerCase() !==
+            password.trim().toLocaleLowerCase() && (
+            <span>las contrase;as no coinciden</span>
+          )}
+        <br />
+        <code>{JSON.stringify(formData, null, 2)}</code>
         <button type="submit">create</button>
         <button type="button" onClick={resetForm}>
           Reset form
