@@ -4,31 +4,29 @@ import * as Yup from "yup";
 import "../../styles/styles.css";
 
 export const FormikBasicPage = () => {
-  const {
-    handleChange,
-    values,
-    handleReset,
-    handleSubmit,
-    handleBlur,
-    errors,
-
-    touched,
-  } = useFormik({
-    initialValues: { firstName: "", lastName: "", email: "", password: "" },
-    onSubmit: (values) => {
-      console.log(
-        "🚀 ~ file: FormikBasicPage.tsx:9 ~ FormikBasicPage ~ values:",
-        values
-      );
-    },
-    validationSchema: Yup.object({
-      firstName: Yup.string()
-        .max(15, "should have 15 characters oor less")
-        .required(),
-      lastName: Yup.string().required(),
-      email: Yup.string().email("this format it's not for a email").required(),
-    }),
-  });
+  const { values, handleReset, handleSubmit, errors, getFieldProps, touched } =
+    useFormik({
+      initialValues: { firstName: "", lastName: "", email: "" },
+      onSubmit: (values) => {
+        console.log(
+          "🚀 ~ file: FormikBasicPage.tsx:9 ~ FormikBasicPage ~ values:",
+          values
+        );
+      },
+      validationSchema: Yup.object({
+        firstName: Yup.string()
+          .max(15, "should have 15 characters oor less")
+          .required(),
+        lastName: Yup.string().required(),
+        email: Yup.string()
+          .email("this format it's not for a email")
+          .matches(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+            "this format it's not for a email"
+          )
+          .required(),
+      }),
+    });
 
   console.log(
     "🚀 ~ file: FormikBasicPage.tsx:14 ~ FormikBasicPage ~ errors:",
@@ -42,11 +40,12 @@ export const FormikBasicPage = () => {
         <label htmlFor="firstName">FirstName</label>
         <input
           type="text"
-          name="firstName"
           id="firstName"
-          onBlur={handleBlur}
-          onChange={handleChange}
-          value={values.firstName}
+          // name="firstName"
+          // onBlur={handleBlur}
+          // onChange={handleChange}
+          // value={values.firstName}
+          {...getFieldProps("firstName")}
         />
 
         {touched.firstName && errors.firstName && (
@@ -56,11 +55,12 @@ export const FormikBasicPage = () => {
         <label htmlFor="LastName">LastName</label>
         <input
           type="text"
-          name="lastName"
           id="LastName"
-          onBlur={handleBlur}
-          onChange={handleChange}
-          value={values.lastName}
+          // name="lastName"
+          // onBlur={handleBlur}
+          // onChange={handleChange}
+          // value={values.lastName}
+          {...getFieldProps("lastName")}
         />
 
         {touched.lastName && errors.lastName && <span> {errors.lastName}</span>}
@@ -68,11 +68,12 @@ export const FormikBasicPage = () => {
         <label htmlFor="email">Email</label>
         <input
           type="email"
-          name="email"
           id="email"
-          onBlur={handleBlur}
-          onChange={handleChange}
-          value={values.email}
+          // name="email"
+          // onBlur={handleBlur}
+          // onChange={handleChange}
+          // value={values.email}
+          {...getFieldProps("email")}
         />
 
         {touched.email && errors.email && <span>{errors.email}</span>}
