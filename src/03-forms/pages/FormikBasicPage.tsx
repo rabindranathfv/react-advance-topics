@@ -1,32 +1,39 @@
-import { ErrorMessage, FormikErrors, useFormik } from "formik";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 import "../../styles/styles.css";
-import { error } from "console";
-
-interface formValues {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-}
 
 export const FormikBasicPage = () => {
-  const validate = (values: formValues) => {
-    const errors: FormikErrors<formValues> = {};
-    return errors;
-  };
+  const {
+    handleChange,
+    values,
+    handleReset,
+    handleSubmit,
+    handleBlur,
+    errors,
 
-  const { handleChange, values, handleReset, handleSubmit, errors, touched } =
-    useFormik({
-      initialValues: { firstName: "", lastName: "", email: "", password: "" },
-      onSubmit: (values) => {
-        console.log(
-          "🚀 ~ file: FormikBasicPage.tsx:9 ~ FormikBasicPage ~ values:",
-          values
-        );
-      },
-      validate,
-    });
+    touched,
+  } = useFormik({
+    initialValues: { firstName: "", lastName: "", email: "", password: "" },
+    onSubmit: (values) => {
+      console.log(
+        "🚀 ~ file: FormikBasicPage.tsx:9 ~ FormikBasicPage ~ values:",
+        values
+      );
+    },
+    validationSchema: Yup.object({
+      firstName: Yup.string()
+        .max(15, "should have 15 characters oor less")
+        .required(),
+      lastName: Yup.string().required(),
+      email: Yup.string().email("this format it's not for a email").required(),
+    }),
+  });
+
+  console.log(
+    "🚀 ~ file: FormikBasicPage.tsx:14 ~ FormikBasicPage ~ errors:",
+    errors
+  );
   return (
     <div>
       <h1> Formik Basic Tutorial </h1>
@@ -37,6 +44,7 @@ export const FormikBasicPage = () => {
           type="text"
           name="firstName"
           id="firstName"
+          onBlur={handleBlur}
           onChange={handleChange}
           value={values.firstName}
         />
@@ -50,6 +58,7 @@ export const FormikBasicPage = () => {
           type="text"
           name="lastName"
           id="LastName"
+          onBlur={handleBlur}
           onChange={handleChange}
           value={values.lastName}
         />
@@ -61,6 +70,7 @@ export const FormikBasicPage = () => {
           type="email"
           name="email"
           id="email"
+          onBlur={handleBlur}
           onChange={handleChange}
           value={values.email}
         />
