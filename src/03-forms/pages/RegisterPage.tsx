@@ -68,7 +68,7 @@ export const RegisterPage = () => {
           type="password"
           value={confirmPassword}
           name="confirmPassword"
-          placeholder="R epeat password"
+          placeholder="Repeat password"
           onChange={onChange}
           className="has-error"
         />
