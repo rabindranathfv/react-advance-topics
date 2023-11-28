@@ -2,11 +2,12 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 import "../../styles/styles.css";
+import { TextInput } from "../components/TextInput";
 
-export const FormikComponentsPage = () => {
+export const FormikAbstractPage = () => {
   return (
     <div>
-      <h1> Formik HOC and Formik Components </h1>
+      <h1> Formik Abstract </h1>
 
       <Formik
         initialValues={{
@@ -44,19 +45,25 @@ export const FormikComponentsPage = () => {
         })}
       >
         {({ handleReset, values }) => (
-          <Form noValidate>
-            <label htmlFor="firstName">FirstName</label>
+          <Form>
+            <TextInput
+              label="FirstName"
+              name="firstName"
+              placeholder="please introduce firstName"
+            />
 
-            <Field name="firstName" type="text" />
-            <ErrorMessage name="firstName" component="span" />
+            <TextInput
+              label="LastName"
+              name="LastName"
+              placeholder="please introduce LastName"
+            />
 
-            <label htmlFor="LastName">LastName</label>
-            <Field name="lastName" type="text" />
-            <ErrorMessage name="lastName" component="span" />
-
-            <label htmlFor="email">Email</label>
-            <Field name="email" type="email" />
-            <ErrorMessage name="email" component="span" />
+            <TextInput
+              label="Email"
+              name="email"
+              placeholder="please introduce your Email"
+              type="email"
+            />
 
             <label htmlFor="jobType">Job Type</label>
             <Field name="jobType" as="select">
