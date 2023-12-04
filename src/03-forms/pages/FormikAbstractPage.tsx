@@ -1,8 +1,8 @@
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 
 import "../../styles/styles.css";
-import { TextInput } from "../components/TextInput";
+import { CheckboxAbs, SelectAbs, TextInputAbs } from "../components";
 
 export const FormikAbstractPage = () => {
   return (
@@ -46,40 +46,34 @@ export const FormikAbstractPage = () => {
       >
         {({ handleReset, values }) => (
           <Form>
-            <TextInput
+            <TextInputAbs
               label="FirstName"
               name="firstName"
               placeholder="please introduce firstName"
             />
 
-            <TextInput
+            <TextInputAbs
               label="LastName"
               name="LastName"
               placeholder="please introduce LastName"
             />
 
-            <TextInput
+            <TextInputAbs
               label="Email"
               name="email"
               placeholder="please introduce your Email"
               type="email"
             />
 
-            <label htmlFor="jobType">Job Type</label>
-            <Field name="jobType" as="select">
+            <SelectAbs name="jobType" label="JobTitle">
               <option value="">Pick something</option>
               <option value="developer">Developer</option>
               <option value="design">Design</option>
               <option value="it-senior">It Senior</option>
               <option value="it-junior">It Junior</option>
-            </Field>
-            <ErrorMessage name="jobType" component="span" />
+            </SelectAbs>
 
-            <label htmlFor="terms">
-              <Field name="terms" type="checkbox" />
-              Terms and Conditions
-            </label>
-            <ErrorMessage name="terms" component="span" />
+            <CheckboxAbs label="Terms and Condition" name="terms"></CheckboxAbs>
 
             {<code>{JSON.stringify(values, null, 2)}</code>}
 

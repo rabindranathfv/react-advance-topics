@@ -4,11 +4,11 @@ interface Props {
   label: string;
   name: string;
   type?: "text" | "email" | "password";
-  placeholder: string;
+  placeholder?: string;
   [x: string]: any;
 }
 
-export const TextInput = ({ label, ...props }: Props) => {
+export const TextInputAbs = ({ label, ...props }: Props) => {
   const [field, meta] = useField(props);
   return (
     <>
