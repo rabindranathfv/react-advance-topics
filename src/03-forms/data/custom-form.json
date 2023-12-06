@@ -1,0 +1,16 @@
+[
+  {
+    "type": "input",
+    "name": "firstName",
+    "placeholder": "Introduce firstName",
+    "label": "firstName",
+    "value": ""
+  },
+  {
+    "type": "input",
+    "name": "lastName",
+    "placeholder": "Introduce lastName",
+    "label": "lastName",
+    "value": ""
+  }
+]
